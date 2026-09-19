@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan Detect Defend — Tech Titanes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grid-backdrop"></div>
+<div class="scan-sweep"></div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L3 6v6c0 5 3.8 8.7 9 10 5.2-1.3 9-5 9-10V6l-9-4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="brand-text">
+        <div class="team">Tech Titanes</div>
+        <div class="product">Scan Detect Defend</div>
+      </div>
+    </div>
+    <nav class="links">
+      <a href="#dashboard" class="active">Dashboard</a>
+      <a href="#scan">Scan</a>
+      <a href="#results">Results</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="status-pill" id="scanStatus">
+      <span class="status-dot"></span>
+      <span class="txt" id="scanStatusText">Scanner Ready</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="dashboard">
+    <div class="eyebrow">QR Security Scanner</div>
+    <h1 class="hero-title">Scan. Detect.<br><span class="accent-word">Defend.</span></h1>
+    <p class="hero-sub">Know where your QR code leads before you scan it. Your first line of defense against malicious QR codes.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+        <span class="pulse-ring"></span> Scan a QR Code
+      </button>
+      <button class="btn btn-ghost" onclick="document.getElementById('results').scrollIntoView({behavior:'smooth'})">View Results</button>
+    </div>
+    <div class="trust-line">"Don't just scan, verify.."</div>
+
+    <!-- SCANNER -->
+    <div class="scanner-card" id="scan">
+      <div class="scanner-drop" id="scannerDrop">
+        <div class="scan-frame">
+          <div class="corner tl"></div><div class="corner tr"></div>
+          <div class="corner bl"></div><div class="corner br"></div>
+          <div class="laser"></div>
+        </div>
+        <p class="hint">Drop your QR code image here, or choose a file</p>
+        <div class="scanner-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">Upload QR Image</button>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" hidden>
+      </div>
+      <div class="security-msg">Scan smart. <span>Detect threats.</span> Stay protected.</div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <div class="section-head">
+      <span class="section-tag">Live Verdict</span>
+      <h2 class="section-title">Security Verdict</h2>
+      <p class="section-desc">Upload a QR code image above to see the verdict, risk score and analysis below.</p>
+    </div>
+
+    <!-- RESULT CARD -->
+    <div class="result-card" id="resultCard">
+      <div class="result-left">
+        <div class="verdict-badge" id="verdictBadge">
+          <svg id="verdictIcon" viewBox="0 0 24 24" fill="none"></svg>
+          <span id="verdictText">NO SCAN YET</span>
+        </div>
+        <p class="verdict-msg" id="verdictMsg">Upload a QR code image to run a real security scan.</p>
+
+        <div class="gauge-wrap">
+          <svg viewBox="0 0 140 140">
+            <circle class="gauge-track" cx="70" cy="70" r="60"></circle>
+            <circle class="gauge-fill" id="gaugeFill" cx="70" cy="70" r="60" stroke-dasharray="377" stroke-dashoffset="377"></circle>
+          </svg>
+          <div class="gauge-center">
+            <div class="gauge-score" id="gaugeScore">—</div>
+            <div class="gauge-max">/ 100</div>
+            <div class="gauge-label" id="gaugeLabel">WAITING</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-right">
+        <div class="url-block">
+          <div class="k">Detected URL</div>
+          <div class="v" id="detectedUrl">No QR code scanned yet</div>
+        </div>
+
+        <div class="indicators" id="indicatorsList"></div>
+
+        <div class="result-footer">
+          <button class="scan-another" onclick="document.getElementById('fileInput').click()">Scan Another</button>
+          <button class="action-btn" id="actionBtn" disabled>Upload a QR code</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- URL ANALYSIS -->
+  <section>
+    <div class="section-head">
+      <span class="section-tag">Breakdown</span>
+      <h2 class="section-title">URL Analysis</h2>
+    </div>
+    <div class="analysis-grid">
+      <div class="analysis-item">
+        <div class="icon-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 007.07 0l1.93-1.93a5 5 0 00-7.07-7.07L10.5 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 11a5 5 0 00-7.07 0L5 12.93a5 5 0 007.07 7.07L13.5 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div class="label">Detected URL</div>
+        <div class="value" id="a-url">—</div>
+      </div>
+      <div class="analysis-item">
+        <div class="icon-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <div class="label">Domain</div>
+        <div class="value" id="a-domain">—</div>
+      </div>
+      <div class="analysis-item">
+        <div class="icon-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.8"/></svg></div>
+        <div class="label">Protocol</div>
+        <div class="value" id="a-protocol">—</div>
+      </div>
+      <div class="analysis-item">
+        <div class="icon-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M4 7h10M4 17h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div class="label">URL Length</div>
+        <div class="value" id="a-length">—</div>
+      </div>
+      <div class="analysis-item">
+        <div class="icon-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 4v6h6M20 20v-6h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 10a8 8 0 00-14.3-4.3M4 14a8 8 0 0014.3 4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div class="label">Redirect Status</div>
+        <div class="value" id="a-redirect">—</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY INDICATORS -->
+  <section>
+    <div class="section-head">
+      <span class="section-tag">Signals</span>
+      <h2 class="section-title">Security Indicators</h2>
+    </div>
+    <div class="sec-indicators-grid" id="secIndicatorsGrid"></div>
+  </section>
+
+</div>
+
+<footer id="about">
+  <div class="wrap">
+    Built by <span class="footer-brand">Tech Titanes</span> — Scan Detect Defend · .
+  </div>
+</footer>
+
+<canvas id="hiddenCanvas" hidden></canvas>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
